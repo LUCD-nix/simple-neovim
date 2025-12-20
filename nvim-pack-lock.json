@@ -8,6 +8,10 @@
       "rev": "bfb26d9",
       "src": "https://github.com/nvim-mini/mini.ai"
     },
+    "mini.icons": {
+      "rev": "ff2e4f1",
+      "src": "https://github.com/nvim-mini/mini.icons"
+    },
     "mini.surround": {
       "rev": "88c5229",
       "src": "https://github.com/nvim-mini/mini.surround"
@@ -15,6 +19,14 @@
     "nvim-lspconfig": {
       "rev": "c4f67bf",
       "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "oil.nvim": {
+      "rev": "cbcb3f9",
+      "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "todo-comments.nvim": {
+      "rev": "31e3c38",
+      "src": "https://github.com/folke/todo-comments.nvim"
     }
   }
 }

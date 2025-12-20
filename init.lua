@@ -6,8 +6,11 @@ vim.o.smartcase = true
 vim.o.cursorline = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 0
+vim.o.signcolumn = 'yes:2'
 vim.o.smartindent = true
-
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.completeopt = "menu,menuone,fuzzy,noinsert,popup"
 
 vim.api.nvim_create_autocmd('UIEnter', {
   callback = function()
@@ -40,11 +43,8 @@ vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
 vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
 vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
 
--- [[ Basic Autocommands ]].
 -- See `:h lua-guide-autocommands`, `:h autocmd`, `:h nvim_create_autocmd()`
-
 -- Highlight when yanking (copying) text.
--- Try it with `yap` in normal mode. See `:h vim.hl.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
   callback = function()
@@ -52,28 +52,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- [[ Create user commands ]]
--- See `:h nvim_create_user_command()` and `:h user-commands`
-
--- Create a command `:GitBlameLine` that print the git blame for the current line
-vim.api.nvim_create_user_command('GitBlameLine', function()
-  local line_number = vim.fn.line('.') -- Get the current line number. See `:h line()`
-  local filename = vim.api.nvim_buf_get_name(0)
-  print(vim.system({ 'git', 'blame', '-L', line_number .. ',+1', filename })
-  :wait().stdout)
-end, { desc = 'Print the git blame for the current line' })
-
--- [[ Add optional packages ]]
--- Nvim comes bundled with a set of packages that are not enabled by
--- default. You can enable any of them by using the `:packadd` command.
-
--- For example, to add the "nohlsearch" package to automatically turn off search highlighting after
--- 'updatetime' and when going to insert mode
 vim.cmd('packadd! nohlsearch')
 
 vim.pack.add({ 'https://github.com/neovim/nvim-lspconfig' })
 
--- add neovim runtime to lua-language-server https://github.com/neovim/nvim-lspconfig/blob/master/lsp/lua_ls.lua
+-- add neovim runtime to lua-language-server
+-- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/lua_ls.lua
 -- without this there would be a "undefined global vim" error everywhere and no
 -- access to signatures
 vim.lsp.config('lua_ls', {
@@ -115,10 +99,75 @@ vim.lsp.enable({ 'lua_ls', 'clangd' })
 
 -- Colorscheme - also adds kanagawa-dragon and kanagawa-lotus
 vim.pack.add({ 'https://github.com/rebelot/kanagawa.nvim' })
-vim.cmd('colorscheme kanagawa-wave')
+vim.cmd('colorscheme kanagawa')
 
 -- Mini things
 vim.pack.add({
   'https://github.com/nvim-mini/mini.ai',
-  'https://github.com/nvim-mini/mini.surround'
 })
+-- defaults are good, just adding some objs and changing search
+-- from next to nearest
+require('mini.ai').setup({
+  search_method = 'cover_or_nearest',
+    n_lines = 30,
+    -- see :h mini.ai
+    custom_textobjects = {
+      -- TODO consider fixing this, would be cool
+      -- F = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),
+      -- o = spec_treesitter({
+      --   a = { '@conditional.outer', '@loop.outer' },
+      --   i = { '@conditional.inner', '@loop.inner' },
+      -- }),
+      -- Disable brackets alias in favor of builtin block textobject
+      -- NOTE : might want to change later
+      b = false,
+      -- Whole buffer
+      g = function()
+        local from = { line = 1, col = 1 }
+        local to = {
+          line = vim.fn.line('$'),
+          col = math.max(vim.fn.getline('$'):len(), 1)
+        }
+        return { from = from, to = to }
+      end
+    }
+})
+
+vim.pack.add({'https://github.com/nvim-mini/mini.surround'})
+-- :h MiniSurround.config for defaults
+require('mini.surround').setup({
+  mappings = {
+    -- all of these are defaults, pasted here to remind me
+    add = 'sa', -- Add surrounding in Normal and Visual modes
+    delete = 'sd', -- Delete surrounding
+    find = 'sf', -- Find surrounding (to the right)
+    find_left = 'sF', -- Find surrounding (to the left)
+    highlight = 'sh', -- Highlight surrounding
+    replace = 'sr', -- Replace surrounding
+    suffix_next = 'n', -- Suffix to search with "next" method
+
+    -- except this one, making it closer to vim defaults
+    suffix_last = 'N', -- Suffix to search with "prev" method
+
+  },
+  -- place surroundings on each line in vis-block mode
+  respect_selection_type = true,
+})
+
+-- Highlights TODO FIX/BUG/FIXME HACK NOTE ETC
+vim.pack.add({'https://github.com/folke/todo-comments.nvim'})
+require('todo-comments').setup()
+
+-- Icons for Oil
+vim.pack.add({'https://github.com/nvim-mini/mini.icons'})
+require('mini.icons').setup()
+
+vim.pack.add({'https://github.com/stevearc/oil.nvim'})
+require('oil').setup({
+  watch_for_changes = true,
+  
+})
+vim.keymap.set('n', '<leader>cd', '<cmd>Oil<CR>')
+
+vim.keymap.set('n', '<leader>dc', '<cmd>lua require("oil").toggle_float()<CR>')
+
