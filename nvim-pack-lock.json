@@ -1,0 +1,20 @@
+{
+  "plugins": {
+    "kanagawa.nvim": {
+      "rev": "aef7f5c",
+      "src": "https://github.com/rebelot/kanagawa.nvim"
+    },
+    "mini.ai": {
+      "rev": "bfb26d9",
+      "src": "https://github.com/nvim-mini/mini.ai"
+    },
+    "mini.surround": {
+      "rev": "88c5229",
+      "src": "https://github.com/nvim-mini/mini.surround"
+    },
+    "nvim-lspconfig": {
+      "rev": "c4f67bf",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    }
+  }
+}
