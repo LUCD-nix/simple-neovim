@@ -21,6 +21,10 @@
       "rev": "88c5229",
       "src": "https://github.com/nvim-mini/mini.surround"
     },
+    "nvim-autopairs": {
+      "rev": "c2a0dd0",
+      "src": "https://github.com/windwp/nvim-autopairs"
+    },
     "nvim-lspconfig": {
       "rev": "d20d83b",
       "src": "https://github.com/neovim/nvim-lspconfig"
