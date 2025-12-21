@@ -1,4 +1,3 @@
-vim.g.mapleader = ' '
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.ignorecase = true
@@ -44,6 +43,4 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 vim.cmd('packadd! nohlsearch')
 
--- Colorscheme - also adds kanagawa-dragon and kanagawa-lotus
-vim.cmd('colorscheme kanagawa')
 

@@ -8,6 +8,3 @@ vim.keymap.set({ 'n' }, '<A-j>', '<C-w>j')
 vim.keymap.set({ 'n' }, '<A-k>', '<C-w>k')
 vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
 
- -- Go to definition
-vim.keymap.set("n", "grd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-vim.keymap.set('n', '<leader>cd', '<cmd>Oil<CR>')

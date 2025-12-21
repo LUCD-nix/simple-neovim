@@ -30,8 +30,24 @@
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "oil.nvim": {
-      "rev": "3b249b7",
+      "rev": "756dec8",
       "src": "https://github.com/stevearc/oil.nvim"
+    },
+    "pick-resession.nvim": {
+      "rev": "3bd9b6a",
+      "src": "https://github.com/scottmckendry/pick-resession.nvim"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd522",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "resession.nvim": {
+      "rev": "05adc14",
+      "src": "https://github.com/stevearc/resession.nvim"
+    },
+    "telescope.nvim": {
+      "rev": "e709d31",
+      "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "todo-comments.nvim": {
       "rev": "31e3c38",

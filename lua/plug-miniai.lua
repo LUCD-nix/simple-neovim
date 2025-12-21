@@ -1,3 +1,6 @@
+vim.pack.add({
+  'https://github.com/nvim-mini/mini.ai',
+})
 -- defaults are good, just adding some objs and changing search
 -- from next to nearest
 require('mini.ai').setup({

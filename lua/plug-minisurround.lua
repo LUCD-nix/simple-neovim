@@ -1,3 +1,6 @@
+vim.pack.add({
+  'https://github.com/nvim-mini/mini.surround',
+})
 -- :h MiniSurround.config for defaults
 require('mini.surround').setup({
   mappings = {
