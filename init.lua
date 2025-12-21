@@ -6,7 +6,7 @@ vim.o.smartcase = true
 vim.o.cursorline = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 0
-vim.o.signcolumn = 'yes:2'
+vim.o.signcolumn = 'auto:1-3'
 vim.o.smartindent = true
 vim.o.splitbelow = true
 vim.o.splitright = true
@@ -65,34 +65,34 @@ vim.lsp.config('lua_ls', {
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
       if
-          path ~= vim.fn.stdpath('config')
-          and (vim.uv.fs_stat(path .. '/.luarc.json')
-            or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
-      then
-        return
+        path ~= vim.fn.stdpath('config')
+        and (vim.uv.fs_stat(path .. '/.luarc.json')
+        or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
+        then
+          return
+        end
       end
-    end
 
-    client.config.settings.Lua = vim.tbl_deep_extend('force',
+      client.config.settings.Lua = vim.tbl_deep_extend('force',
       client.config.settings.Lua, {
-      runtime = {
-        version = 'LuaJIT',
-        path = {
-          'lua/?.lua',
-          'lua/?/init.lua',
+        runtime = {
+          version = 'LuaJIT',
+          path = {
+            'lua/?.lua',
+            'lua/?/init.lua',
+          },
         },
-      },
-      workspace = {
-        checkThirdParty = false,
-        library = {
-          vim.env.VIMRUNTIME
+        workspace = {
+          checkThirdParty = false,
+          library = {
+            vim.env.VIMRUNTIME
+          }
         }
-      }
-    })
-  end,
-  settings = {
-    Lua = {}
-  }
+      })
+    end,
+    settings = {
+      Lua = {}
+    }
 })
 
 vim.lsp.enable({ 'lua_ls', 'clangd' })
@@ -109,12 +109,12 @@ vim.pack.add({
 -- from next to nearest
 require('mini.ai').setup({
   search_method = 'cover_or_nearest',
-    n_lines = 30,
-    -- see :h mini.ai
-    custom_textobjects = {
-      -- TODO consider fixing this, would be cool
-      -- F = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),
-      -- o = spec_treesitter({
+  n_lines = 30,
+  -- see :h mini.ai
+  custom_textobjects = {
+    -- TODO consider fixing this, would be cool
+    -- F = spec_treesitter({ a = '@function.outer', i = '@function.inner' }),
+    -- o = spec_treesitter({
       --   a = { '@conditional.outer', '@loop.outer' },
       --   i = { '@conditional.inner', '@loop.inner' },
       -- }),
@@ -131,43 +131,77 @@ require('mini.ai').setup({
         return { from = from, to = to }
       end
     }
-})
+  })
 
-vim.pack.add({'https://github.com/nvim-mini/mini.surround'})
--- :h MiniSurround.config for defaults
-require('mini.surround').setup({
-  mappings = {
-    -- all of these are defaults, pasted here to remind me
-    add = 'sa', -- Add surrounding in Normal and Visual modes
-    delete = 'sd', -- Delete surrounding
-    find = 'sf', -- Find surrounding (to the right)
-    find_left = 'sF', -- Find surrounding (to the left)
-    highlight = 'sh', -- Highlight surrounding
-    replace = 'sr', -- Replace surrounding
-    suffix_next = 'n', -- Suffix to search with "next" method
+  vim.pack.add({'https://github.com/nvim-mini/mini.surround'})
+  -- :h MiniSurround.config for defaults
+  require('mini.surround').setup({
+    mappings = {
+      -- all of these are defaults, pasted here to remind me
+      add = 'sa', -- Add surrounding in Normal and Visual modes
+      delete = 'sd', -- Delete surrounding
+      find = 'sf', -- Find surrounding (to the right)
+      find_left = 'sF', -- Find surrounding (to the left)
+      highlight = 'sh', -- Highlight surrounding
+      replace = 'sr', -- Replace surrounding
+      suffix_next = 'n', -- Suffix to search with "next" method
 
-    -- except this one, making it closer to vim defaults
-    suffix_last = 'N', -- Suffix to search with "prev" method
+      -- except this one, making it closer to vim defaults
+      suffix_last = 'N', -- Suffix to search with "prev" method
 
-  },
-  -- place surroundings on each line in vis-block mode
-  respect_selection_type = true,
-})
+    },
+    -- place surroundings on each line in vis-block mode
+    respect_selection_type = true,
+  })
 
--- Highlights TODO FIX/BUG/FIXME HACK NOTE ETC
-vim.pack.add({'https://github.com/folke/todo-comments.nvim'})
-require('todo-comments').setup()
+  -- Highlights TODO FIX/BUG/FIXME HACK NOTE ETC
+  vim.pack.add({'https://github.com/folke/todo-comments.nvim'})
+  require('todo-comments').setup()
 
--- Icons for Oil
-vim.pack.add({'https://github.com/nvim-mini/mini.icons'})
-require('mini.icons').setup()
+  -- Icons for Oil and friends
+  vim.pack.add({'https://github.com/nvim-mini/mini.icons'})
+  require('mini.icons').setup()
 
-vim.pack.add({'https://github.com/stevearc/oil.nvim'})
-require('oil').setup({
-  watch_for_changes = true,
-  
-})
-vim.keymap.set('n', '<leader>cd', '<cmd>Oil<CR>')
+  vim.pack.add({'https://github.com/stevearc/oil.nvim'})
+  require('oil').setup({
+    watch_for_changes = true,
+  })
+  vim.keymap.set('n', '<leader>cd', '<cmd>Oil<CR>')
 
-vim.keymap.set('n', '<leader>dc', '<cmd>lua require("oil").toggle_float()<CR>')
 
+  vim.pack.add({{
+    src = 'https://github.com/saghen/blink.cmp',
+	-- this is to have the rust builtin fuzzy
+    version = vim.version.range('*')
+  }})
+
+  require('blink.cmp').setup({
+    -- Disable cmdline
+    cmdline = { enabled = false },
+    fuzzy = { implementation = 'prefer_rust' },
+    completion = {
+      keyword = { range = 'full' },
+      accept = { auto_brackets = { enabled = true }, },
+      list = { selection = { preselect = false, auto_insert = true } },
+      menu = {
+        auto_show = true,
+        draw = {
+          columns = {
+            { "kind_icon" , gap = 1},
+            { "label", "label_description" }
+          },
+        }
+      },
+      -- Show documentation when selecting a completion item
+      documentation = { auto_show = true, auto_show_delay_ms = 500 },
+      -- Display a preview of the selected item on the current line
+      ghost_text = { enabled = true },
+    },
+    sources = {
+      -- Remove 'buffer' if you don't want text completions, by default it's only enabled when LSP returns no items
+      default = { 'lsp', 'path', 'buffer' },
+    },
+    -- Experimental signature help support
+    signature = { enabled = true }
+  }
+)

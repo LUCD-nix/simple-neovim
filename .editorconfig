@@ -1,6 +1,6 @@
 root = true
 [*.lua]
-# [basic]
+[basic]
 
 # optional space/tab
 indent_style = space
@@ -8,6 +8,5 @@ indent_style = space
 indent_size = 2
 max_line_length = 80
 # if indent_style is tab, this is valid
-tab_width = 4
 # none/single/double
 quote_style = single
