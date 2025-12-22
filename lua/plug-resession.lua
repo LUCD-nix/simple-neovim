@@ -22,17 +22,28 @@ vim.api.nvim_create_autocmd("VimEnter", {
   nested = true,
 })
 
+
 -- i might have cooked here
+local function save_session_on_leave()
+  if Is_git_repo() then
+    resession.save(Get_git_root(), {notify = true})
+  else
+    -- TODO : maybe ask for confirmation if not in repo
+    resession.save(vim.fn.getcwd(), {notify = true})
+  end
+end
+
+
 vim.api.nvim_create_autocmd("DirChangedPre", {
-  callback = function()
-    resession.save(vim.fn.getcwd(), {notify = true})
-  end,
+  callback = save_session_on_leave
 })
+
+resession.add_hook("pre_load", save_session_on_leave)
+
 vim.api.nvim_create_autocmd("VimLeavePre", {
-  callback = function()
-    resession.save(vim.fn.getcwd(), {notify = true})
-  end,
+  callback = save_session_on_leave
 })
+
 vim.api.nvim_create_autocmd('StdinReadPre', {
   callback = function()
     -- Store this for later
