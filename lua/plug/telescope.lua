@@ -46,10 +46,16 @@ local function find_files_from_project_git_root()
 end
 
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', find_files_from_project_git_root, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', live_grep_from_project_git_root, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fs', telescope.extensions.resession.resession, { desc = 'Telescope resession' })
-vim.keymap.set('n', '<leader>fj', builtin.jumplist, { desc = 'Telescope jumplist' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+vim.keymap.set('n', '<leader>ff',
+  find_files_from_project_git_root, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg',
+  live_grep_from_project_git_root, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fs',
+  telescope.extensions.resession.resession, { desc = 'Telescope resession' })
+vim.keymap.set('n', '<leader>fj',
+  builtin.jumplist, { desc = 'Telescope jumplist' })
+vim.keymap.set('n', '<leader>fb',
+  builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh',
+  builtin.help_tags, { desc = 'Telescope help tags' })
 

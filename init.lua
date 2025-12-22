@@ -8,6 +8,7 @@ function Get_git_root()
   return vim.fn.fnamemodify(dot_git_path, ":h")
 end
 require('colorscheme')
+require('config')
 require('stock-keymaps')
 require('lsps')
 require('plug.default')
@@ -17,4 +18,4 @@ require('plug.minisurround')
 require('plug.resession')
 -- telescope here depends on resession, no touchy
 require('plug.telescope')
-require('config')
+require('plug.git-signs')
