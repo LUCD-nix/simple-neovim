@@ -29,9 +29,6 @@ vim.o.confirm = true
 
 -- [[ Set up keymaps ]] See `:h vim.keymap.set()`, `:h mapping`, `:h keycodes`
 
--- Use <Esc> to exit terminal mode
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-
 -- See `:h lua-guide-autocommands`, `:h autocmd`, `:h nvim_create_autocmd()`
 -- Highlight when yanking (copying) text.
 vim.api.nvim_create_autocmd('TextYankPost', {
