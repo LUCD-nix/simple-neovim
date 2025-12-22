@@ -10,3 +10,15 @@ vim.keymap.set({ 'n' }, '<A-l>', '<C-w>l')
 
 -- Use <Esc> to exit terminal mode
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
+
+-- Quick terminal split
+vim.keymap.set('n', '<leader>th', '<cmd>horizontal terminal<CR>')
+vim.keymap.set('n', '<leader>tb', '<cmd>tab terminal<CR>')
+vim.keymap.set('n', '<leader>tv', '<cmd>vertical terminal<CR>')
+
+-- quick save
+vim.keymap.set('n', '<leader>w', "<cmd>write<CR>")
+
+-- Move selection in visual mode
+vim.keymap.set('x', '<C-k>', ":m '<-2<CR>gv=gv", {remap = false})
+vim.keymap.set('x', '<C-j>', ":m '>+1<CR>gv=gv", {remap = false})
