@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     -- Only load the session if nvim was started with no args and without reading from stdin
     if vim.fn.argc(-1) == 0 and not vim.g.using_stdin then
       -- Save these to a different directory, so our manual sessions don't get polluted
-      resession.load(vim.fn.getcwd(), { dir = "dirsession", silence_errors = true })
+      resession.load(vim.fn.getcwd(), { dir = "session", silence_errors = true })
     end
   end,
   nested = true,
@@ -26,16 +26,22 @@ vim.api.nvim_create_autocmd("VimEnter", {
 -- i might have cooked here
 local function save_session_on_leave()
   if Is_git_repo() then
-    resession.save(Get_git_root(), {notify = true})
+    resession.save(Get_git_root(), {notify = true, dir = 'session'})
   else
     -- TODO : maybe ask for confirmation if not in repo
-    resession.save(vim.fn.getcwd(), {notify = true})
+    resession.save(vim.fn.getcwd(), {notify = true, dir = 'session'})
   end
 end
 
 
 vim.api.nvim_create_autocmd("DirChangedPre", {
   callback = save_session_on_leave
+})
+
+vim.api.nvim_create_autocmd("DirChanged", {
+  callback = function ()
+    resession.load(vim.fn.getcwd(), { dir = "session", silence_errors = true })
+  end
 })
 
 resession.add_hook("pre_load", save_session_on_leave)
