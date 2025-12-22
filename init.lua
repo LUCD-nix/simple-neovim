@@ -5,7 +5,7 @@ function Is_git_repo()
 end
 function Get_git_root()
   local dot_git_path = vim.fn.finddir(".git", ".;")
-  return vim.fn.fnamemodify(dot_git_path, ":h")
+  return vim.fn.fnamemodify(dot_git_path, ":p:h:h")
 end
 require('colorscheme')
 require('config')
