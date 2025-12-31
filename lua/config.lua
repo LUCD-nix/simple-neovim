@@ -5,11 +5,13 @@ vim.o.smartcase = true
 vim.o.cursorline = true
 vim.o.tabstop = 4
 vim.o.shiftwidth = 0
-vim.o.signcolumn = 'auto:1-3'
+vim.o.signcolumn = 'yes:1'
 vim.o.smartindent = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.completeopt = "menu,menuone,fuzzy,noinsert,popup"
+vim.o.textwidth = 80
+vim.o.colorcolumn = "+1"
 
 vim.api.nvim_create_autocmd('UIEnter', {
   callback = function()
@@ -22,6 +24,7 @@ vim.o.scrolloff = 10
 
 -- Show <tab> and trailing spaces
 vim.o.list = true
+vim.o.listchars='tab:󰅂 ,trail:-'
 
 -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
 -- instead raise a dialog asking if you wish to save the current file(s) See `:help 'confirm'`

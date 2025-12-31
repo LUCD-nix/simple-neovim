@@ -1,7 +1,5 @@
 root = true
 [*.lua]
-[basic]
-
 # optional space/tab
 indent_style = space
 # if indent_style is space, this is valid

@@ -45,6 +45,10 @@
       "rev": "b9fd522",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
+    "quicker.nvim": {
+      "rev": "771437c",
+      "src": "https://github.com/stevearc/quicker.nvim"
+    },
     "resession.nvim": {
       "rev": "05adc14",
       "src": "https://github.com/stevearc/resession.nvim"

@@ -16,6 +16,7 @@ require('plug.blinkcmp')
 require('plug.miniai')
 require('plug.minisurround')
 require('plug.resession')
+require('plug.quicker')
 -- telescope here depends on resession, no touchy
 require('plug.telescope')
 require('plug.git-signs')
