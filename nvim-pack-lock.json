@@ -13,6 +13,10 @@
       "rev": "aef7f5c",
       "src": "https://github.com/rebelot/kanagawa.nvim"
     },
+    "kanso.nvim": {
+      "rev": "927361c",
+      "src": "https://github.com/webhooked/kanso.nvim"
+    },
     "mini.ai": {
       "rev": "bfb26d9",
       "src": "https://github.com/nvim-mini/mini.ai"
